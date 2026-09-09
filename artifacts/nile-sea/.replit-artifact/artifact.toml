@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "NILE & SEA"
+description = "A bilingual luxury marine hospitality website for discovering and requesting yacht experiences across Egypt's Mediterranean coast, Red Sea, and Nile."
+version = "1.0.0"
+id = "artifacts/nile-sea"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18912
+
+[services.development]
+run = "pnpm --filter @workspace/nile-sea run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nile-sea", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/nile-sea/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18912"
+BASE_PATH = "/"
